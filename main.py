@@ -178,35 +178,8 @@ def CKT_main(**kwargs):
 
 
 if __name__ == '__main__':
-    
-    '''
-    # run CKT_dev(with memory)
-    main(model_name='CKT_dev',
-         env='CKT_dev',
-         k_frames=2,
-         batch_size=64,
-         data_source='assist2009',
-         knowledge_length=110,
-         concept_length=20,
-         knowledge_emb_size=50,
-         interaction_emb_size=100,
-         lstm_hidden_dim=100,
-         lstm_num_layers=1,
-
-         max_epoch=50,
-         lr=0.001,
-         lr_decay=0.5,
-         decay_every_epoch=10,
-         weight_decay=1e-5,
-         cv_times=1,
-         plot_every_iter=5,
-         vis=True,
-         issave=False)
-    '''
-
     H = 15
     knowledge_length = 110
-
     best_test_auc = CKT_main(
         model_name="CKT",
         env='CKT',
@@ -226,5 +199,6 @@ if __name__ == '__main__':
 
         vis=False,
         issave=False,
-        issave_loss_file=True)
+        issave_loss_file=False)
+
     print(best_test_auc)

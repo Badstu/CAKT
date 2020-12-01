@@ -1,0 +1,23 @@
+.ipynb_checkpoints/
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+*.npy
+*.zip
+# dataset/
+ghostdriver.log
+*.out
+back/
+
+checkpoints/
+data/assit2009.py
+EDA/
+evoimg/
+# others/
+paper_vis/
+/others/DKVMN/data
+CKT_params_combination_assist2015
+CV.py
+dev.py
+main_3d_mask.py

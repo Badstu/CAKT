@@ -1,8 +1,3 @@
-'''
-2020/09/27
-this file is experiment (main) file for CAKT_WWW, the improvement version of CAKT.
-'''
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function

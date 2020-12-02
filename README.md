@@ -1,7 +1,3 @@
-# CAKT
-
-This is official implement of "How You Performed Affects How You Will Perform", which is done by Shanghui Yang in Oct, 2020, the paper has been submitted to WWW 2021 and under reviewing.
-
 ## Environment
 This project is developed using python 3.7，Pytorch1.4.0, CUDA 10.2 on NVIDIA Titan RTX GPU.
 

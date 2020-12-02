@@ -20,10 +20,8 @@ scikit-learn==0.22.2.post1
 scipy==1.4.1
 selenium==3.141.0
 six==1.14.0
-# torch==1.4.0
 torchfile==0.1.0
 torchnet==0.0.4
-# torchvision==0.5.0
 tornado==6.0.4
 tqdm==4.45.0
 urllib3==1.25.9

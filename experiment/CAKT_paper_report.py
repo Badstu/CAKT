@@ -1,15 +1,15 @@
 import sys
 import torch
-from CKT_experiment import CKT_main
+from CAKT_experiment import CAKT_main
 
 
-def run_one_time_CKT():
+def run_one_time_CAKT():
     H = 15
     knowledge_length = 110
 
-    best_test_auc = CKT_main(
-        model_name="CKT",
-        env='CKT',
+    best_test_auc = CAKT_main(
+        model_name="CAKT",
+        env='CAKT',
         data_source="assist2009",
         k_frames=4,
         batch_size=80,
@@ -32,16 +32,16 @@ def run_one_time_CKT():
     print(best_test_auc)
 
 
-def run_10_times_CKT():
+def run_10_times_CAKT():
     list_best_auc = []
     H = 15
     data_source="synthetic"
     knowledge_length = 50
 
     for i in range(10):
-        best_test_auc = CKT_main(
-            model_name="CKT",
-            env='CKT',
+        best_test_auc = CAKT_main(
+            model_name="CAKT",
+            env='CAKT',
             data_source=data_source,
             k_frames=4,
             batch_size=80,
@@ -81,11 +81,11 @@ def run_five_dataset():
     for data_source, knowledge_length in list_datasets[1:]:
         print(data_source, knowledge_length)
 
-        # run CKT_WWW
+        # run CAKT_WWW
         H = 15
         best_test_auc = main(
-            model_name="CKT",
-            env='CKT',
+            model_name="CAKT",
+            env='CAKT',
             data_source=data_source,
             k_frames=4,
             batch_size=80,
@@ -129,10 +129,10 @@ def run_sensi_k():
             print("==============================")
             print(k, data_source, knowledge_length)
 
-            # run CKT_WWW
-            best_test_auc = CKT_main(
-                model_name="CKT",
-                env='CKT',
+            # run CAKT_WWW
+            best_test_auc = CAKT_main(
+                model_name="CAKT",
+                env='CAKT',
                 data_source=data_source,
                 k_frames=k,
                 batch_size=batch_size * torch.cuda.device_count() // 2,
@@ -178,10 +178,10 @@ def run_sensi_H():
             print("==============================")
             print(H, data_source, knowledge_length)
 
-            # run CKT_WWW
-            best_test_auc = CKT_main(
-                model_name="CKT",
-                env='CKT',
+            # run CAKT_WWW
+            best_test_auc = CAKT_main(
+                model_name="CAKT",
+                env='CAKT',
                 data_source=data_source,
                 k_frames=k_frames,
                 batch_size=batch_size,
@@ -225,10 +225,10 @@ def run_sensi_b():
             print("==============================")
             print(b, data_source, knowledge_length)
 
-            # run CKT_WWW
-            best_test_auc = CKT_main(
-                model_name="CKT",
-                env='CKT',
+            # run CAKT_WWW
+            best_test_auc = CAKT_main(
+                model_name="CAKT",
+                env='CAKT',
                 data_source=data_source,
                 k_frames=k_frames,
                 batch_size=b * torch.cuda.device_count(),
@@ -275,10 +275,10 @@ def run_params_combination():
             print("=================================")
             print(k, b, data_source, knowledge_length)
 
-            # run CKT_WWW
-            best_test_auc = CKT_main(
-                model_name="CKT",
-                env='CKT',
+            # run CAKT_WWW
+            best_test_auc = CAKT_main(
+                model_name="CAKT",
+                env='CAKT',
                 data_source=data_source,
                 k_frames=k,
                 batch_size=b,
@@ -324,10 +324,10 @@ def run_ablation():
             print("=================================")
             print(ablation_option, data_source, knowledge_length)
 
-            # run CKT_ablation
-            best_test_auc = CKT_main(
-                model_name="CKT_ablation",
-                env='CKT',
+            # run CAKT_ablation
+            best_test_auc = CAKT_main(
+                model_name="CAKT_ablation",
+                env='CAKT',
                 ablation=ablation_option,
                 data_source=data_source,
                 k_frames=k_frames,
@@ -353,9 +353,9 @@ def run_ablation():
 
 
 if __name__ == '__main__':
-    # run_one_time_CKT()
+    # run_one_time_CAKT()
 
-    # run_10_times_CKT()
+    # run_10_times_CAKT()
 
     # run_params_combination()
 

@@ -163,10 +163,10 @@ class CCAFusion(nn.Module):
         pass
 
 
-class CKT_ablation(nn.Module):
+class CAKT_ablation(nn.Module):
     def __init__(self, k_frames, input_dim, H, embed_dim, hidden_dim, num_layers, output_dim, batch_size, device,
                  ablation="None", init_params=True):
-        super(CKT_ablation, self).__init__()
+        super(CAKT_ablation, self).__init__()
         self.k_frames = k_frames
         self.know_length = output_dim
         self.device = device

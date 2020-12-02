@@ -153,15 +153,15 @@ def adjust_lr(opt, optimizer, epoch, current_loss):
 def save_model_weight(opt, model, optimizer, epoch, lr, is_final=False, is_CV=False):
     if is_CV:
         if is_final:
-            prefix = opt.save_prefix + "CKT_final_params{}_{}_".format(str(opt.num_layers), str(opt.weight_decay))
+            prefix = opt.save_prefix + "CAKT_final_params{}_{}_".format(str(opt.num_layers), str(opt.weight_decay))
         else:
-            prefix = opt.save_prefix + "CKT_epoch{}_params{}_{}_".format(epoch, str(opt.num_layers),
+            prefix = opt.save_prefix + "CAKT_epoch{}_params{}_{}_".format(epoch, str(opt.num_layers),
                                                                          str(opt.weight_decay))
     else:
         if is_final:
-            prefix = opt.save_prefix + "CKT_final_"
+            prefix = opt.save_prefix + "CAKT_final_"
         else:
-            prefix = opt.save_prefix + "CKT_epoch{}_".format(epoch)
+            prefix = opt.save_prefix + "CAKT_epoch{}_".format(epoch)
 
     if opt.issave:
         file_name = time.strftime(prefix + '%m%d_%H_%M_%S.pth')

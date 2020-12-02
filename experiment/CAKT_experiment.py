@@ -1,6 +1,6 @@
 '''
 2020/09/27
-this file is experiment (main) file for CKT_WWW, the improvement version of CKT.
+this file is experiment (main) file for CAKT_WWW, the improvement version of CAKT.
 '''
 
 from __future__ import absolute_import
@@ -16,10 +16,10 @@ import random
 from data.KTData import KTData
 from model.RNN import RNN_DKT
 from model.CNN import CNN, CNN_3D
-from model.CKT import CKT
-from model.CKT_dev import CKT_dev
-from model.CKT_CIKM import CKT_CIKM
-from model.CKT_ablation import CKT_ablation
+from model.CAKT import CAKT
+from model.CAKT_dev import CAKT_dev
+from model.CAKT_CI import CAKT_CI
+from model.CAKT_ablation import CAKT_ablation
 import torch
 from torch.utils.data import Dataset, DataLoader
 import torch.nn.utils.rnn as rnn_utils
@@ -34,7 +34,7 @@ from utils.file_path import init_file_path
 from tqdm import tqdm
 from torchnet import meter
 
-from run.run_ckt import train_ckt, valid_ckt, test_ckt
+from run.run_cakt import train_cakt, valid_cakt, test_cakt
 
 def init_loss_file(opt):
     # delete loss file while exist
@@ -46,7 +46,7 @@ def init_loss_file(opt):
         os.remove(opt.test_loss_path)
 
 
-def CKT_main(**kwargs):
+def CAKT_main(**kwargs):
     opt = Config()
 
     for k_, v_ in kwargs.items():
@@ -79,15 +79,15 @@ def CKT_main(**kwargs):
     test_loader = DataLoader(test_dataset, batch_size=opt.batch_size, shuffle=True, num_workers=opt.num_workers,
                              drop_last=True, collate_fn=myutils.collate_fn)
     print("model name is {}, next is inital model".format(opt.model_name))
-    if opt.model_name == "CKT_dev":
-        model = CKT_dev(opt.k_frames, opt.knowledge_length, opt.concept_length, opt.knowledge_emb_size, opt.interaction_emb_size, opt.lstm_hidden_dim, opt.lstm_num_layers, opt.batch_size, opt.device)
-    elif opt.model_name == "CKT":
-        model = CKT(opt.k_frames, opt.input_dim, opt.H, opt.embed_dim, opt.hidden_dim, opt.num_layers, opt.output_dim, opt.batch_size, opt.device)
-    elif opt.model_name == "CKT_CIKM":
-        model = CKT_CIKM(opt.k_frames, opt.input_dim, opt.H, opt.embed_dim, opt.hidden_dim, opt.num_layers, opt.output_dim, opt.batch_size, opt.device)
-    elif opt.model_name == "CKT_ablation":
+    if opt.model_name == "CAKT_dev":
+        model = CAKT_dev(opt.k_frames, opt.knowledge_length, opt.concept_length, opt.knowledge_emb_size, opt.interaction_emb_size, opt.lstm_hidden_dim, opt.lstm_num_layers, opt.batch_size, opt.device)
+    elif opt.model_name == "CAKT":
+        model = CAKT(opt.k_frames, opt.input_dim, opt.H, opt.embed_dim, opt.hidden_dim, opt.num_layers, opt.output_dim, opt.batch_size, opt.device)
+    elif opt.model_name == "CAKT_CI":
+        model = CAKT_CI(opt.k_frames, opt.input_dim, opt.H, opt.embed_dim, opt.hidden_dim, opt.num_layers, opt.output_dim, opt.batch_size, opt.device)
+    elif opt.model_name == "CAKT_ablation":
         print("initial abaltion model: ", opt.ablation)
-        model = CKT_ablation(opt.k_frames, opt.input_dim, opt.H, opt.embed_dim, opt.hidden_dim, opt.num_layers, opt.output_dim, opt.batch_size, opt.device, opt.ablation)
+        model = CAKT_ablation(opt.k_frames, opt.input_dim, opt.H, opt.embed_dim, opt.hidden_dim, opt.num_layers, opt.output_dim, opt.batch_size, opt.device, opt.ablation)
     
     lr = opt.lr
     last_epoch = -1
@@ -124,11 +124,11 @@ def CKT_main(**kwargs):
         if epoch < last_epoch:
             continue
 
-        if opt.model_name == "CKT" or opt.model_name == "CKT_CIKM" or opt.model_name == "CKT_ablation":
-            train_loss_meter, train_auc_meter, train_all_auc, train_loss_list = train_ckt(opt, vis, model, train_loader, epoch, lr,
+        if opt.model_name == "CAKT" or opt.model_name == "CAKT_CI" or opt.model_name == "CAKT_ablation":
+            train_loss_meter, train_auc_meter, train_all_auc, train_loss_list = train_cakt(opt, vis, model, train_loader, epoch, lr,
                                                                                 optimizer)
-            val_loss_meter, val_auc_meter, val_all_auc, val_loss_list = valid_ckt(opt, vis, model, valid_loader, epoch)
-            test_loss_meter, test_auc_meter, test_all_auc, test_loss_list = test_ckt(opt, vis, model, test_loader, epoch)
+            val_loss_meter, val_auc_meter, val_all_auc, val_loss_list = valid_cakt(opt, vis, model, valid_loader, epoch)
+            test_loss_meter, test_auc_meter, test_all_auc, test_loss_list = test_cakt(opt, vis, model, test_loader, epoch)
 
         loss_result["train_loss"] = train_loss_meter.value()[0]
         # auc_resilt["train_auc"] = train_auc_meter.value()[0]
@@ -183,38 +183,13 @@ def CKT_main(**kwargs):
 
 
 if __name__ == '__main__':
-    
-    '''
-    # run CKT_dev(with memory)
-    main(model_name='CKT_dev',
-         env='CKT_dev',
-         k_frames=2,
-         batch_size=64,
-         data_source='assist2009',
-         knowledge_length=110,
-         concept_length=20,
-         knowledge_emb_size=50,
-         interaction_emb_size=100,
-         lstm_hidden_dim=100,
-         lstm_num_layers=1,
-
-         max_epoch=50,
-         lr=0.001,
-         lr_decay=0.5,
-         decay_every_epoch=10,
-         weight_decay=1e-5,
-         cv_times=1,
-         plot_every_iter=5,
-         vis=True,
-         issave=False)
-    '''
 
     H = 15
     knowledge_length = 110
 
-    best_test_auc = CKT_main(
-        model_name="CKT",
-        env='CKT',
+    best_test_auc = CAKT_main(
+        model_name="CAKT",
+        env='CAKT',
         data_source="assist2009",
         k_frames=4,
         batch_size=80,

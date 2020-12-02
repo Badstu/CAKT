@@ -9,7 +9,7 @@ from sklearn.metrics import roc_auc_score
 from tqdm import tqdm
 from torchnet import meter
 
-def train_ckt(opt, vis, model, data_loader, epoch, lr, optimizer):
+def train_cakt(opt, vis, model, data_loader, epoch, lr, optimizer):
     model.train()
 
     criterion = nn.BCEWithLogitsLoss()
@@ -38,7 +38,7 @@ def train_ckt(opt, vis, model, data_loader, epoch, lr, optimizer):
         batch_repeat_gaps = batch_repeat_gaps.long().to(opt.device)
 
         # TODO model apply & process output prediction
-        if opt.model_name == "CKT_dev":
+        if opt.model_name == "CAKT_dev":
             # model forward propogation
             output = model(batch_seq, batch_label) # [batch_size, max_seq_len]
 
@@ -56,7 +56,7 @@ def train_ckt(opt, vis, model, data_loader, epoch, lr, optimizer):
             predict = torch.masked_select(output, mask.bool())
             # predict = torch.Tensor(predict).to(opt.device)
             label = torch.Tensor(label).to(opt.device)
-        elif opt.model_name == "CKT" or opt.model_name == "CKT_ablation":
+        elif opt.model_name == "CAKT" or opt.model_name == "CAKT_ablation":
             # model forward propogation
             output, hidden_state, _ = model(batch_seq, batch_past_counts, batch_repeat_gaps)
 
@@ -73,7 +73,7 @@ def train_ckt(opt, vis, model, data_loader, epoch, lr, optimizer):
 
             predict = torch.masked_select(output, mask.bool())
             label = torch.Tensor(label).to(opt.device)
-        elif opt.model_name == "CKT_CIKM":
+        elif opt.model_name == "CAKT_CI":
             # model forward propogation
             output, hidden_state = model(batch_seq)
 
@@ -122,7 +122,7 @@ def train_ckt(opt, vis, model, data_loader, epoch, lr, optimizer):
     return loss_meter, auc_meter, all_auc, train_loss_list
 
 @torch.no_grad()
-def valid_ckt(opt, vis, model, valid_loader, epoch):
+def valid_cakt(opt, vis, model, valid_loader, epoch):
     model.eval()
 
     criterion = nn.BCEWithLogitsLoss()
@@ -146,7 +146,7 @@ def valid_ckt(opt, vis, model, valid_loader, epoch):
         batch_repeat_gaps = batch_repeat_gaps.long().to(opt.device)
 
         # TODO model apply & process output prediction
-        if opt.model_name == "CKT_dev":
+        if opt.model_name == "CAKT_dev":
             # model forward propogation
             output = model(batch_seq, batch_label) # [batch_size, max_seq_len]
 
@@ -164,7 +164,7 @@ def valid_ckt(opt, vis, model, valid_loader, epoch):
             predict = torch.masked_select(output, mask.bool())
             # predict = torch.Tensor(predict).to(opt.device)
             label = torch.Tensor(label).to(opt.device)
-        elif opt.model_name == "CKT" or opt.model_name == "CKT_ablation":
+        elif opt.model_name == "CAKT" or opt.model_name == "CAKT_ablation":
             # model forward propogation
             output, hidden_state, _ = model(batch_seq, batch_past_counts, batch_repeat_gaps)
 
@@ -181,7 +181,7 @@ def valid_ckt(opt, vis, model, valid_loader, epoch):
 
             predict = torch.masked_select(output, mask.bool())
             label = torch.Tensor(label).to(opt.device)
-        elif opt.model_name == "CKT_CIKM":
+        elif opt.model_name == "CAKT_CI":
             # model forward propogation
             output, hidden_state = model(batch_seq)
 
@@ -227,7 +227,7 @@ def valid_ckt(opt, vis, model, valid_loader, epoch):
 
 
 @torch.no_grad()
-def test_ckt(opt, vis, model, test_loader, epoch):
+def test_cakt(opt, vis, model, test_loader, epoch):
     model.eval()
 
     criterion = nn.BCEWithLogitsLoss()
@@ -251,7 +251,7 @@ def test_ckt(opt, vis, model, test_loader, epoch):
         batch_repeat_gaps = batch_repeat_gaps.long().to(opt.device)
 
         # TODO model apply & process output prediction
-        if opt.model_name == "CKT_dev":
+        if opt.model_name == "CAKT_dev":
             # model forward propogation
             output = model(batch_seq, batch_label) # [batch_size, max_seq_len]
 
@@ -269,7 +269,7 @@ def test_ckt(opt, vis, model, test_loader, epoch):
             predict = torch.masked_select(output, mask.bool())
             # predict = torch.Tensor(predict).to(opt.device)
             label = torch.Tensor(label).to(opt.device)
-        elif opt.model_name == "CKT" or opt.model_name == "CKT_ablation":
+        elif opt.model_name == "CAKT" or opt.model_name == "CAKT_ablation":
             # model forward propogation
             output, hidden_state, _ = model(batch_seq, batch_past_counts, batch_repeat_gaps)
 
@@ -286,7 +286,7 @@ def test_ckt(opt, vis, model, test_loader, epoch):
 
             predict = torch.masked_select(output, mask.bool())
             label = torch.Tensor(label).to(opt.device)
-        elif opt.model_name == "CKT_CIKM":
+        elif opt.model_name == "CAKT_CI":
             # model forward propogation
             output, hidden_state = model(batch_seq)
 

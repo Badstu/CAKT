@@ -1,6 +1,6 @@
 '''
 2020/10/04
-CKT_dev is CKT model with two memory block
+CAKT_dev is CAKT model with two memory block
 '''
 
 import torch
@@ -216,11 +216,11 @@ class MemoryBlock(nn.Module):
         return value_memory # [batch_size, concept_length, interaction_emb_size]
 
 
-class CKT_dev(nn.Module):
+class CAKT_dev(nn.Module):
     # def __init__(self, k_frames, input_dim, H, embed_dim, hidden_dim, num_layers, output_dim, batch_size, device,
     #              init_params=True):
     def __init__(self, k_frames, knowledge_length, concept_length, knowledge_emb_size, interaction_emb_size, lstm_hidden_dim, lstm_num_layers, batch_size, device, init_params=True):
-        super(CKT_dev, self).__init__()
+        super(CAKT_dev, self).__init__()
         self.k_frames = k_frames
         self.knowledge_length = knowledge_length
         self.concept_length = concept_length
@@ -390,7 +390,7 @@ if __name__ == '__main__':
     max_seq_len = 23
 
     # model = MemoryBlock(batch_size, knowledge_length, knowledge_emb_size, interaction_emb_size, device)
-    model = CKT_dev(k_frames, knowledge_length, concept_length, knowledge_emb_size, interaction_emb_size, lstm_hidden_dim,
+    model = CAKT_dev(k_frames, knowledge_length, concept_length, knowledge_emb_size, interaction_emb_size, lstm_hidden_dim,
                  lstm_num_layers, batch_size, device)
     model = model.to(device)
 

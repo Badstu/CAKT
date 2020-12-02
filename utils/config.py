@@ -53,7 +53,7 @@ class Config:
     # EKT option
     is_text = False
 
-    # follow option is for CKT
+    # follow option is for CAKT
     knowledge_length = 110
     concept_length = 20
     knowledge_emb_size = 20

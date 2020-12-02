@@ -27,8 +27,8 @@ python main.py
 ```
 
 when you get this information, it means that you run it successfully.
-![img](utils/CAKT_success.png)
 
+![img](utils/CAKT_success.png)
 
 * if you want to run our main CAKT model, you can use `run_CAKT()` function, and you can easily modify some parameters, such as `k_frames`(k), `H` and `batch_size`(b) to do some experiments, for example,
     ```
